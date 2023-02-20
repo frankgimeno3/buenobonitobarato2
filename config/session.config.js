@@ -13,6 +13,6 @@ module.exports = (app) => {
             httpOnly: true,
             //maxAge: 60000   //temps de vida de la cookie i de l'id (ms)
         },
-        store: mongoStore.create({mongoUrl:process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/newbbb"})
+        store: mongoStore.create({mongoUrl:process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/buenobonitobarato2"})
     }));
 }   
