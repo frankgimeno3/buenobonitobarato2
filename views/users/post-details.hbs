@@ -1,0 +1,20 @@
+<h1>{{details.foto}}</h1>
+
+<h2>{{details.restaurante}}</h2>
+
+<p>{{details.detalles}}</p>
+
+<p>{{details.location}}</p>
+
+<ul>
+  <li>
+    <a href="/user/{{details._id}}/edit">Edit</a>
+  </li>
+
+  <li>
+    <a href="/user">Back</a>
+  </li>
+</ul>
+<form action="/user/{{details._id}}/delete" method="POST">
+  <button>Delete</button>
+</form>
