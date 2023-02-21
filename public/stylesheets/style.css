@@ -1,12 +1,68 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+@import url('https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap');
+/* lightblue : #afbed5
+dark blue: #568a9f
+orange : #f09133
+pale orange: #f09133 */
+*{ font-family: 'Fjalla One', sans-serif;
+    font-weight: bold;
+
 }
 
+
 a {
-  color: #00b7ff;
+color: #00b7ff;
 }
 
 h1 {
-  color: 15px;
+color: 15px;
+padding: 10px;
+margin: 10px;
 }
+
+
+nav {
+background-color: white;
+
+
+
+}
+#BBB {
+margin: 50px;
+}
+
+/* #navIcon {
+padding: 50px;
+} */
+/* 
+HOME BODY */
+#homeBody {
+    height: auto;   
+    width: 100%;
+    display: flex;
+    align-items: center; 
+    background-image: linear-gradient(
+      to right, 
+      rgba(0, 0, 0, 0.5),
+      rgba(0, 0, 0, 0)
+    ), url("../images/pexels-photo-2347311.jpeg");
+    background-repeat: no-repeat;
+    background-position: center; 
+    background-size: cover; 
+  }
+  
+  #postBody {
+    height: auto;
+    width: 100%;
+    background-color: #f09133 ;
+  }
+
+
+#homeDiv {
+width: 40%;
+height: auto;
+margin: 8% 5%;
+color: white;
+
+}
+
+
