@@ -15,6 +15,15 @@ router.get("/user", (req, res, next) => {
     })
     .catch((err) => next(err));
 });
+router.get("/user/users", (req, res, next) => {
+  User.find()
+    .populate("creator")
+    .then((myPostDB) => {
+      //console.log("Here is my data", myPostDB);
+      res.render("users/users");
+    })
+    .catch((err) => next(err));
+});
 
 router.get("/user/new-post", (req, res, next) => {
   res.render("users/formPost");
