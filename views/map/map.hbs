@@ -1,6 +1,10 @@
  <h3>My Google Maps Demo</h3>
     <!--The div element for the map -->
-    <div id="map"></div>
+     <div id="pac-container">
+        <input id="pac-input" type="text" placeholder="Search..."/>
+      </div>
+      
+       <div id="map"></div>
 
     <!-- 
       The `defer` attribute causes the callback to execute after the full HTML
@@ -9,9 +13,10 @@
       with https://www.npmjs.com/package/@googlemaps/js-api-loader.
       -->
     <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDh69OMV8YXAkrox9tLmH7PshwMX4X6V14&callback=initMap&v=weekly"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDh69OMV8YXAkrox9tLmH7PshwMX4X6V14&callback=initMap&v=weekly&libraries=places"
       defer
     ></script>
+
 
     <script
       src="/js/script.js"
