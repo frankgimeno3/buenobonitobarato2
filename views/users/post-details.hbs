@@ -1,12 +1,20 @@
 <h1>{{details.foto}}</h1>
 
+<p>Creator:{{details.creator.username}}</p>
+<p>Email:{{details.creator.email}}</p>
+
 <h2>{{details.restaurante}}</h2>
 
 <p>{{details.detalles}}</p>
 
 <p>{{details.location}}</p>
 
+{{#each comments}}
+  <p><b>{{this.creator.username}}:</b> {{this.content}}</p>
+{{/each}}
+
 <ul>
+
   <li>
     <a href="/user/{{details._id}}/edit">Edit</a>
   </li>
@@ -15,6 +23,31 @@
     <a href="/user">Back</a>
   </li>
 </ul>
+
+<form action="/user/{{details._id}}" method="post">
+  <label>
+    creator:
+    <input type="text" name="author" />
+  </label>
+  <input
+    type="text"
+    name="creator"
+    value="{{details.creator.username}}"
+    hidden
+  />
+  <label>
+    content:
+    <textarea
+      name="content"
+      cols="30"
+      rows="4"
+      placeholder="Write your comment..."
+    ></textarea>
+  </label>
+
+  <button type="submit">Comment</button>
+</form>
+
 <form action="/user/{{details._id}}/delete" method="POST">
   <button>Delete</button>
 </form>

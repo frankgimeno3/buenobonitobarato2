@@ -2,6 +2,8 @@ const { Schema, model } = require("mongoose");
 
 const postSchema = new Schema(
   {
+    creator: { type: Schema.Types.ObjectId, ref: "User" },
+
     foto: {
       type: String,
     },
@@ -15,6 +17,10 @@ const postSchema = new Schema(
       type: String,
       required: true,
     },
+
+    comments: [{ type: Schema.Types.ObjectId, ref: "Comment" }],
+
+    // comment: [{ type: Schema.Types.ObjectId, ref: "Comment" }],
   },
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`
