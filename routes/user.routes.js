@@ -1,111 +1,127 @@
-const router = require("express").Router();
-
-const User = require("../models/User.model")
-const Comments = require("../models/Comments.model")
-const FoodEntry = require("../models/FoodEntry.model")
-// const MONGO_URI = process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/lab-express-basic-auth";
-
-const bcrypt = require("bcryptjs");
-const saltRounds = 10;
-
-const isLoggedIn = require("../middlewares/isLoggedIn")
-const isLoggedOut = require("../middlewares/isLoggedOut")
-
+const express = require("express");
+const router = express.Router();
+const User = require("../models/User.model");
+const Post = require("../models/Post.model");
+const Comment = require("../models/Comment.model");
+const { db } = require("../models/User.model");
 
 /* GET home page */
-router.get("/", (req, res, next) =>{
-  res.render("index", {title: "Home Page"})
-})
-
-router.get("/register", isLoggedOut, (req, res, next) => {
-  res.render("user/register");
-});
-
-router.post("/register", isLoggedOut, (req, res, next) => {
-  let {username, password, passwordRepeat} = req.body ;
-  if(username == "" || password == "" || passwordRepeat == ""){
-    res.render("user/register", {mensajeError: "Falta rellenar campos"})
-    return;
-  }
-  else if(password != passwordRepeat){
-    res.render("user/register", {mensajeError: "Las contraseñas no coinciden"})
-    return;
-  }
-  User.find({username})
-  .then(result =>{
-    if(result.length != 0) {
-      res.render("user/register", {mensajeError: "Usuario ya existe"})
-      return;
-    } 
-    let salt = bcrypt.genSaltSync(saltRounds);
-    let passwordEncriptado = bcrypt.hashSync(password, salt);
-
-    User.create({
-      username: username,
-      password: passwordEncriptado
+router.get("/user", (req, res, next) => {
+  Post.find()
+    .populate("creator")
+    .then((myPostDB) => {
+      //console.log("Here is my data", myPostDB);
+      res.render("users/home", { post: myPostDB });
     })
-    .then(result=>{
-      res.redirect("/user/login")
+    .catch((err) => next(err));
+});
+
+router.get("/user/new-post", (req, res, next) => {
+  res.render("users/formPost");
+});
+
+router.post("/user/new-post", (req, res, next) => {
+  console.log("this is current user: ", req.session.currentUser._id);
+
+  const creator = req.session.currentUser._id;
+  console.log("soy elcreator", creator);
+  const { foto, restaurante, detalles, location } = req.body;
+  console.log(req.body);
+  Post.create({ creator, foto, restaurante, detalles, location })
+    .then((dbPost) => {
+      return User.findByIdAndUpdate(creator, { $push: { post: dbPost._id } });
     })
-    .catch(err=>next(err))
-  })
-  .catch(err => next(err))
+    .then((post) => {
+      console.log("Post guardado en DB");
+      res.redirect("/user");
+    })
+    .catch((err) => next(err));
+});
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+router.get("/user/:postId", (req, res, next) => {
+  const { postId } = req.params;
+  //console.log(req.session.currentUser);
+  Post.findById(postId)
+    .populate("creator comments")
+    .populate({
+            path: "comments",
+            populate: {
+              path: "creator",
+              model: "User",
+            },
+          })
+        
+    .then((post) => {
+      console.log("this is the second test", post);
+      res.render("users/post-details", { details: post });
+    })
+    .catch((err) => next(err));
 });
 
-router.get("/login", isLoggedOut, (req, res, next) => {
-  res.render("user/login");
+// router.get("/user/:postId", (req, res, next) => {
+//   const { postId } = req.params;
+//   Post.findById(postId)
+//     .populate("creator comments")
+//     
+//     .then((foundPost) => {
+//       console.log("This is comment array", foundPost);
+//       res.render("users/post-details", foundPost);
+//     })
+//     .catch((err) => next(err));
+// });
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+router.post("/user/:postId", (req, res, next) => {
+  const { postId } = req.params;
+  const creator = req.session.currentUser._id;
+  const { content } = req.body;
+  //console.log("Session user_id:", creator);
+  Post.findById(postId)
+    .then((dbPost) => {
+      let newComment;
+      newComment = new Comment({ creator: creator, content });
+      //console.log(newComment);
+      newComment.save().then((dbComment) => {
+        dbPost.comments.push(dbComment._id);
+        dbPost.save().then((UpdatePost) => {
+          //console.log("This is updated post", UpdatePost);
+          res.redirect(`/user/${UpdatePost._id}`);
+        });
+      });
+    })
+    .catch((err) => next(err));
 });
+//************************************************************************************************ */
 
-router.post("/login", isLoggedOut, (req, res, next) => {
-  let {username, password} = req.body;
-  if(username == "" || password == ""){
-    res.render("user/login", {mensajeError: "Campos vacíos"})
-    return;
-  }
-  User.find({username})
-  .then(result =>{
-    if(result.length == 0){
-      res.render("user/login", {mensajeError: "Credenciales incorrectas"})
-      return;
-    }
-    if(bcrypt.compareSync(password, result[0].password)) {
-      req.session.currentUser = username; //en req.session.currentUser guardamos la información del usuario que nos interese. Podemos guardar un string o un objeto con todos los datos
-      res.redirect("/user/profile");
-    } else {
-      res.render("users/login", { mensajeError: "Credenciales incorrectas" });
-    }
-  })
-  .catch(err => next(err));
-  })
-
-  router.get("/profile", (req, res, next) => {
-    res.render("user/profile");
+// ***************************************************************************************************
+router.post("/user/:postId/delete", (req, res, next) => {
+  const { postId } = req.params;
+  console.log(postId);
+  Post.findByIdAndDelete(postId)
+    .then(() => {
+      console.log("the post has been removed");
+      res.redirect("/user");
+    })
+    .catch((err) => next(err));
+});
+router.get("/user/:postId/edit", (req, res, next) => {
+  const { postId } = req.params;
+  Post.findById(postId).then((result) => {
+    res.render("users/post-edit", { final: result });
   });
-
-router.get("/posts", isLoggedOut, (req, res, next) =>{
-  res.render("user/posts")
-})
-
-router.get("/private", isLoggedIn, (req, res, next) =>{
-  res.render("user/private")
-})
-
-router.get("/logout", isLoggedIn, (req, res, next)=>{
-  req.session.destroy(err => {
-    if(err) next(err);
-    else res.redirect("/user/login");
-  });
 });
-
-router.get("/article", (req, res, next) => {
-  
-  res.render("article");
-});
-
-
-router.get("/allusers", (req, res, next) => {
-  res.render("allusers");
+router.post("/user/:postId/edit", (req, res, next) => {
+  const { postId } = req.params;
+  const { foto, restaurante, detalles, location } = req.body;
+  Post.findByIdAndUpdate(
+    postId,
+    { foto, restaurante, detalles, location },
+    { new: true }
+  )
+    .then((update) => {
+      console.log(update);
+      res.redirect(`/user/${update.id}`);
+    })
+    .catch((err) => next(err));
 });
 
 module.exports = router;
-

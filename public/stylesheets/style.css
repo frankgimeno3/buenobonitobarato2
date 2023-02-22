@@ -1,34 +1,17 @@
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  background-color: #1f1f1f;
-  color:#dddddd
-
 }
 
 a {
-  color: #00B7FF;
+  color: #00b7ff;
 }
 
-.wrappedarticles{
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-evenly ;
-  padding: 50px;
-
+h1 {
+  color: 15px;
 }
 
-.postarticle{
-  display:flex;
-  flex-direction: column;
-  max-width: 300px;
-  padding: 10px;
-}
-
-.smallimage {
-  display: flex;
-  width: 300px;
-  height: auto;
-  padding: 10px;
+#map {
+  height: 400px; /* The height is 400 pixels */
+  width: 100%; /* The width is the width of the web page */
 }
