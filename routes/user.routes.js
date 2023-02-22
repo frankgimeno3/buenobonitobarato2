@@ -37,36 +37,39 @@ router.post("/user/new-post", (req, res, next) => {
     })
     .catch((err) => next(err));
 });
-
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 router.get("/user/:postId", (req, res, next) => {
-  console.log("holqaaaaaaaaaaa");
   const { postId } = req.params;
+  //console.log(req.session.currentUser);
   Post.findById(postId)
     .populate("creator comments")
     .populate({
-      path: "comments",
-      populate: {
-        path: "creator",
-        model: "User",
-      },
-    })
-    .then((foundPost) => {
-      console.log("This is comment array", foundPost);
-      res.render("users/post-details", foundPost);
+            path: "comments",
+            populate: {
+              path: "creator",
+              model: "User",
+            },
+          })
+        
+    .then((post) => {
+      console.log("this is the second test", post);
+      res.render("users/post-details", { details: post });
     })
     .catch((err) => next(err));
 });
+
 // router.get("/user/:postId", (req, res, next) => {
 //   const { postId } = req.params;
-//   //console.log(req.session.currentUser);
 //   Post.findById(postId)
-//     .populate("creator")
-//     .then((post) => {
-//       //console.log("this is the second test", post);
-//       res.render("users/post-details", { details: post });
+//     .populate("creator comments")
+//     
+//     .then((foundPost) => {
+//       console.log("This is comment array", foundPost);
+//       res.render("users/post-details", foundPost);
 //     })
 //     .catch((err) => next(err));
 // });
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 router.post("/user/:postId", (req, res, next) => {
   const { postId } = req.params;
   const creator = req.session.currentUser._id;
@@ -89,6 +92,7 @@ router.post("/user/:postId", (req, res, next) => {
 });
 //************************************************************************************************ */
 
+// ***************************************************************************************************
 router.post("/user/:postId/delete", (req, res, next) => {
   const { postId } = req.params;
   console.log(postId);

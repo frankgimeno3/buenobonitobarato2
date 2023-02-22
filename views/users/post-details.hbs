@@ -9,10 +9,6 @@
 
 <p>{{details.location}}</p>
 
-{{#each comments}}
-  <p><b>{{this.creator.username}}:</b> {{this.content}}</p>
-{{/each}}
-
 <ul>
 
   <li>
@@ -23,6 +19,11 @@
     <a href="/user">Back</a>
   </li>
 </ul>
+
+<h2>COMENTARIOS:</h2>
+{{#each details.comments}}
+  <p><b>{{creator.username}}:</b> {{content}}</p>
+{{/each}}
 
 <form action="/user/{{details._id}}" method="post">
   <label>
