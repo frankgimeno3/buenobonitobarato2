@@ -7,21 +7,24 @@ const { db } = require("../models/User.model");
 
 /* GET home page */
 router.get("/user", (req, res, next) => {
-  Post.find()
-    .populate("creator")
-    .then((myPostDB) => {
-      //console.log("Here is my data", myPostDB);
-      res.render("users/home", { post: myPostDB });
+  let myUserId = req.session.currentUser._id;
+  console.log("**myuser id**=", myUserId);
+  //console.log(req.session.currentUser);
+  //console.log("All information from cookie", req.session.currentUser);
+  User.findById(myUserId)
+    .populate("posts")
+    .populate({
+      path: "posts",
+      populate: {
+        path: "comments",
+        model: "Comment",
+      },
     })
-    .catch((err) => next(err));
-});
-router.get("/user/users", (req, res, next) => {
-  User.find()
-    .populate("creator")
-    .then((myPostDB) => {
-      //console.log("Here is my data", myPostDB);
-      res.render("users/users");
+    .then((myUserdb) => {
+      console.log("Here is my dataaaaaaaa", myUserdb);
+      res.render("users/home", { post: myUserdb });
     })
+
     .catch((err) => next(err));
 });
 
@@ -38,7 +41,7 @@ router.post("/user/new-post", (req, res, next) => {
   console.log(req.body);
   Post.create({ creator, foto, restaurante, detalles, location })
     .then((dbPost) => {
-      return User.findByIdAndUpdate(creator, { $push: { post: dbPost._id } });
+      return User.findByIdAndUpdate(creator, { $push: { posts: dbPost._id } });
     })
     .then((post) => {
       console.log("Post guardado en DB");
@@ -53,13 +56,13 @@ router.get("/user/:postId", (req, res, next) => {
   Post.findById(postId)
     .populate("creator comments")
     .populate({
-            path: "comments",
-            populate: {
-              path: "creator",
-              model: "User",
-            },
-          })
-        
+      path: "comments",
+      populate: {
+        path: "creator",
+        model: "User",
+      },
+    })
+
     .then((post) => {
       console.log("this is the second test", post);
       res.render("users/post-details", { details: post });
@@ -71,7 +74,7 @@ router.get("/user/:postId", (req, res, next) => {
 //   const { postId } = req.params;
 //   Post.findById(postId)
 //     .populate("creator comments")
-//     
+//
 //     .then((foundPost) => {
 //       console.log("This is comment array", foundPost);
 //       res.render("users/post-details", foundPost);
