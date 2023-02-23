@@ -1,0 +1,145 @@
+@import url('https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap');
+
+/* lightblue : #afbed5
+dark blue: #568a9f
+orange : #f09133
+pale orange: #f09133 */
+* {
+  font-family: 'Fjalla One', sans-serif;
+  font-weight: bold;
+
+}
+
+
+h1 {
+  font-size: 1.5vw;
+  margin: 10px 10px;
+}
+
+
+nav {
+  background-color: white;
+  font-size: 2vw;
+}
+nav div img {
+  /* width: 5vw;
+  height: 6vh;  */
+  padding-left: 10px;
+}
+
+#BBB {
+  margin: 30px;
+  font-size: 3vw;
+ 
+}
+
+#homeBody {
+  height: auto;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  background-image: linear-gradient(to right,
+      rgba(0, 0, 0, 0.5),
+      rgba(0, 0, 0, 0)), url("../images/pexels-photo-2347311.jpeg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+#postBody {
+  height: auto;
+  width: 100%;
+  background-color: #f09133;
+}
+
+
+#homeDiv {
+  width: 40%;
+  height: auto;
+  margin: 8% 5%;
+  color: white;
+
+}
+
+#form {
+  height: 50%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  background-image: linear-gradient(to right,
+      rgba(0, 0, 0, 0.5),
+      rgba(0, 0, 0, 0)), url("../images/pexels-photo-958545.jpeg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  max-width: 100%;
+  
+}
+
+
+#login-form {
+  height: 50%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  background-image: linear-gradient(to right,
+      rgba(0, 0, 0, 0.5),
+      rgba(0, 0, 0, 0)), url("../images/pexels-photo-1527603.webp");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+
+
+
+form {
+  margin: 20px;
+  ;
+}
+
+form label {
+  margin: 3px;
+  color: white;
+  font-weight: none;
+  letter-spacing: 0.5px;
+  font-size: 1.8vw;
+
+}
+form label input {
+text-align: center;
+
+}
+
+form button {
+  text-align: center;
+  background-color: pink;
+  font-size: 1.8vw;
+  padding: auto 40px;
+  }
+  
+
+footer{
+display: flex;
+flex-direction: column;
+justify-content: end;
+height: 10%;
+}
+
+
+footer ul li a {
+  list-style: none;
+  text-decoration: none;
+  color: grey;
+  font-size: 1.2vw;
+
+
+}
+
+footer span {
+  font-size: 1vw;
+}
