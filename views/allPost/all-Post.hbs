@@ -1,0 +1,15 @@
+<h1>Posts</h1>
+{{#each allpost}}
+
+  <div class="card" style="width: 18rem;">
+    {{!-- <img src="{{foto}}" class="card-img-top" alt="..." /> --}}
+    <div class="card-body">
+      <h5 class="card-title">{{restaurante}}</h5>
+      <p class="card-text">{{detalles}}</p>
+      <p class="card-text">{{location}}</p>
+      <p class="card-text"><b>From:</b>{{this.creator.username}}</p>
+      <a href="/user/{{_id}}" class="btn btn-primary">More</a>
+    </div>
+  </div>
+
+{{/each}}
