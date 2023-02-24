@@ -1,21 +1,63 @@
-<form action="/user/new-post" method="POST">
+<div class="container-fluid">
+<form action="/user/new-post" method="POST" enctype="multipart/form-data" >
   <div>
-    <input name="foto" tipe="text" id="foto">
-    <Labe> foto</Label>
+       <input class="btn btn-dark" type="file" name="foto" id="foto"  />
+   
   </div>
   <div>
-    <Input name="restaurante" id="restaurante" tipe="text">
+    <Input name="restaurante" id="restaurante" type="text" >
     <Labe>Restaurante</Label>
   </div>
     <div>
-    <Input name="detalles" id="detalles" tipe="text">
+    <Input name="detalles" id="detalles" type="text">
     <Labe>Detalles</Label>
   </div>
   <div>
-    <Input name="location" id="location" tipe="text">
-    <Labe>Location</Label>
+        <input name="location" id="location" type="text" placeholder="Search..."/>
+      {{!-- <Input name="location" id="location" tipe="text"> --}}
+    <label>Location</Label>
   </div>
   <div>
-    <button type="submit" >Publicar</button>
+    <button type="submit" class="btn btn-dark">Publish</button>
+    
   </div>
 </form>
+
+</div>
+
+
+<script>
+    let autocomplete
+    function initAutocomplete() {
+        autocomplete = new google.maps.places.Autocomplete(
+            document.getElementById('location'),
+            {
+                types: [],
+                componentRestrictions: { 'country': ['ES'] },
+                fields: ["formatted_address", "geometry", "name"]
+            })
+        console.log("consolelog de autocomplete", xautocomplete)
+        /*   let place = autocomplete.getPlace();
+
+           let lat = place.geometry.location.lat(),
+           let lng = place.geometry.location.lng(); */
+
+
+        autocomplete.addListener('place_changed', onPlaceChanged)
+        function onPlaceChanged() {
+            let place = autocomplete.getPlace()
+
+            if (!place.geometry) {
+                document.getElementById('location').placeholder = 'Enter a place'
+            }
+            else {
+                document.getElementById("location").value = place.geometry.location.lat()
+                console.log(place)            
+            }
+        }
+    }
+</script>
+
+<script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDh69OMV8YXAkrox9tLmH7PshwMX4X6V14&libraries=places&callback=initAutocomplete"> async defer
+    </script>

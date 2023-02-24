@@ -1,54 +1,41 @@
-<h1>{{details.foto}}</h1>
+<div class="card">
+  <img src="{{details.foto}}" class="card-img-top" alt="img" />
+  <div class="card-body">
+    <h5 class="card-title">{{details.restaurante}}</h5>
+    <p class="card-text">{{details.detalles}}</p>
+  </div>
 
-<p>Creator:{{details.creator.username}}</p>
-<p>Email:{{details.creator.email}}</p>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">{{details.location}}</li>
+    <li class="list-group-item"><b>By:</b><q
+      >{{details.creator.username}}</q></li>
+    <li class="list-group-item"></li>
+  </ul>
 
-<h2>{{details.restaurante}}</h2>
-
-<p>{{details.detalles}}</p>
-
-<p>{{details.location}}</p>
-
-<ul>
-
-  <li>
+  {{#if status}}
+    <form action="/user/{{details._id}}/delete" method="POST">
+      <button class="btn btn-dark">Delete</button>
+    </form>
     <a href="/user/{{details._id}}/edit">Edit</a>
-  </li>
+  {{else}}
 
-  <li>
-    <a href="/user">Back</a>
-  </li>
-</ul>
+  {{/if}}
 
-<h2>COMENTARIOS:</h2>
+</div>
+
+<h6>COMENTS:</h6>
 {{#each details.comments}}
   <p><b>{{creator.username}}:</b> {{content}}</p>
 {{/each}}
 
 <form action="/user/{{details._id}}" method="post">
-  <label>
-    creator:
-    <input type="text" name="author" />
-  </label>
-  <input
-    type="text"
-    name="creator"
-    value="{{details.creator.username}}"
-    hidden
-  />
-  <label>
-    content:
-    <textarea
-      name="content"
-      cols="30"
-      rows="4"
-      placeholder="Write your comment..."
-    ></textarea>
-  </label>
 
-  <button type="submit">Comment</button>
-</form>
+  <textarea
+    name="content"
+    cols="30"
+    rows="4"
+    placeholder="Write your comment..."
+  ></textarea>
 
-<form action="/user/{{details._id}}/delete" method="POST">
-  <button>Delete</button>
+  <button type="submit" class="btn btn-dark">Send</button>
 </form>

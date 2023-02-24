@@ -4,15 +4,28 @@ const User = require("../models/User.model");
 const Post = require("../models/Post.model");
 const Comment = require("../models/Comment.model");
 const { db } = require("../models/User.model");
+const fileUploader = require("../config/cloudinary.config");
 
 /* GET home page */
 router.get("/user", (req, res, next) => {
-  Post.find()
-    .populate("creator")
-    .then((myPostDB) => {
-      //console.log("Here is my data", myPostDB);
-      res.render("users/home", { post: myPostDB });
+  let myUserId = req.session.currentUser._id;
+  console.log("**myuser id**=", myUserId);
+  //console.log(req.session.currentUser);
+  //console.log("All information from cookie", req.session.currentUser);
+  User.findById(myUserId)
+    .populate("posts")
+    .populate({
+      path: "posts",
+      populate: {
+        path: "comments",
+        model: "Comment",
+      },
     })
+    .then((myUserdb) => {
+      console.log("Here is my data", myUserdb);
+      res.render("users/home", { post: myUserdb });
+    })
+
     .catch((err) => next(err));
 });
 
@@ -20,16 +33,16 @@ router.get("/user/new-post", (req, res, next) => {
   res.render("users/formPost");
 });
 
-router.post("/user/new-post", (req, res, next) => {
+router.post("/user/new-post", fileUploader.single("foto"), (req, res, next) => {
   console.log("this is current user: ", req.session.currentUser._id);
 
   const creator = req.session.currentUser._id;
   console.log("soy elcreator", creator);
   const { foto, restaurante, detalles, location } = req.body;
   console.log(req.body);
-  Post.create({ creator, foto, restaurante, detalles, location })
+  Post.create({ creator, foto: req.file.path, restaurante, detalles, location })
     .then((dbPost) => {
-      return User.findByIdAndUpdate(creator, { $push: { post: dbPost._id } });
+      return User.findByIdAndUpdate(creator, { $push: { posts: dbPost._id } });
     })
     .then((post) => {
       console.log("Post guardado en DB");
@@ -40,20 +53,27 @@ router.post("/user/new-post", (req, res, next) => {
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 router.get("/user/:postId", (req, res, next) => {
   const { postId } = req.params;
-  //console.log(req.session.currentUser);
+  const myUsername = req.session.currentUser.username;
+  //console.log(myUsername);
   Post.findById(postId)
     .populate("creator comments")
     .populate({
-            path: "comments",
-            populate: {
-              path: "creator",
-              model: "User",
-            },
-          })
-        
+      path: "comments",
+      populate: {
+        path: "creator",
+        model: "User",
+      },
+    })
+
     .then((post) => {
-      console.log("this is the second test", post);
-      res.render("users/post-details", { details: post });
+      console.log("Check the result", post.creator.username);
+
+      if (post.creator.username === myUsername) {
+        console.log("this is the second test", post);
+        res.render("users/post-details", { details: post, status: true });
+      } else {
+        res.render("users/post-details", { details: post });
+      }
     })
     .catch((err) => next(err));
 });
@@ -62,7 +82,7 @@ router.get("/user/:postId", (req, res, next) => {
 //   const { postId } = req.params;
 //   Post.findById(postId)
 //     .populate("creator comments")
-//     
+//
 //     .then((foundPost) => {
 //       console.log("This is comment array", foundPost);
 //       res.render("users/post-details", foundPost);
@@ -96,6 +116,7 @@ router.post("/user/:postId", (req, res, next) => {
 router.post("/user/:postId/delete", (req, res, next) => {
   const { postId } = req.params;
   console.log(postId);
+
   Post.findByIdAndDelete(postId)
     .then(() => {
       console.log("the post has been removed");

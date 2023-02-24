@@ -15,5 +15,4 @@ router.post("/map", (req, res, next) => {
   // ENTIENDO QUE AQUI HAY QUE AÑADIR LO QUE PILLAMOS DEL BUSCADOR
 })
 
-
 module.exports = router;

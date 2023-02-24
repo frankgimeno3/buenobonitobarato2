@@ -1,6 +1,11 @@
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: blanchedalmond;
+  height: 100%;
+}
+#nav {
+  height: 20%;
 }
 
 a {
@@ -14,4 +19,7 @@ h1 {
 #map {
   height: 400px; /* The height is 400 pixels */
   width: 100%; /* The width is the width of the web page */
+}
+img {
+  width: 50%;
 }
