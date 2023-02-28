@@ -1,10 +1,9 @@
+<section  id="editPostSection" class="sections">
 
-<div class="container-fluid">
-  
 <form action="/user/{{final._id}}/edit" method="POST">
   <div>
     <input name="foto" tipe="text" id="foto" value="{{final.foto}}">
-    <Labe>foto</Label>
+    <Labe> foto</Label>
   </div>
   <div>
     <Input name="restaurante" id="restaurante" tipe="text" value="{{final.restaurante}}">
@@ -20,8 +19,7 @@
     <Labe>Location</Label>
   </div>
   <div>
-    
-    <button type="submit" class="btn btn-dark">Publicar</button>
+    <button type="submit" >Publicar</button>
   </div>
 </form>
 
@@ -60,3 +58,5 @@
 <script
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDh69OMV8YXAkrox9tLmH7PshwMX4X6V14&libraries=places&callback=initAutocomplete"> async defer
 </script>
+
+</section>

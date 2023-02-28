@@ -1,57 +1,31 @@
-<div id="login-form">
-  <h2>Log In</h2>
-  <form action="/auth/login" method="POST">
+<div id="login-form" class="sections">
+  <h1>Log In</h1>
+  <form action="/auth/login" method="POST" class="signUpClass">
+    <div>
 
-    <label>
-      Username
-      <input type="text" name="username" placeholder="Your username" />
-    </label>
+      <div class="divTitleandSearch">
+        <label class="formTitle">Username </label>
+        <input type="text" name="username" placeholder="Your username" class="PostFormBar" />
 
-    <label>
-      Email
-      <input type="email" name="email" placeholder="Your email" />
-    </label>
-
-    <label>
-      Password
-      <input type="password" name="password" placeholder="Your password" />
-    </label>
-
-    <button type="submit">Log In</button>
-
-    <a href="/auth/signup">SignUp</a>
-
-    {{! <form>
-      <div class="row mb-3">
-        <label
-          for="inputEmail3"
-          class="col-sm-2 col-form-label"
-        >Username</label>
-        <div class="col-sm-10">
-          <input type="text" name="username" id="inputEmail3" />
-        </div>
       </div>
-      <div class="row mb-3">
-        <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
-        <div class="col-sm-10">
-          <input type="email" name="email" id="inputEmail3" />
-        </div>
+      <div>
+        <label class="formTitle">Email </label>
+        <input type="email" name="email" placeholder="Your email" class="PostFormBar" />
       </div>
-      <div class="row mb-3">
-        <label
-          for="inputPassword3"
-          class="col-sm-2 col-form-label"
-        >Password</label>
-        <div class="col-sm-10">
-          <input type="password" name="password" id="inputPassword3" />
-        </div>
+      <div>
+        <label class="formTitle">Password </label>
+        <input type="password" name="password" placeholder="Your password" class="PostFormBar" />
+
       </div>
+      <div class="loginSignUpBar">
+        <button type="submit">Log In</button>
 
-      <button type="submit" class="btn btn-primary">Log In</button>
-    </form> }}
+        <a href="/auth/signup" class="LoginSign">Sign Up</a>
 
-    {{#if errorMessage}}
-      <p class="error">{{errorMessage}}</p>
-    {{/if}}
+        {{#if errorMessage}}
+        <p class="error">{{errorMessage}}</p>
+        {{/if}}
+      </div>
+    </div>
   </form>
 </div>

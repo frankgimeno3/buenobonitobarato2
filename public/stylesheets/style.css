@@ -1,25 +1,333 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  background-color: blanchedalmond;
-  height: 100%;
-}
-#nav {
-  height: 20%;
+@import url('https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap');
+/* 
+white: fffcf2
+grey ccc5b9
+dark grey 403d39
+black 252422
+orange eb5e28 
+blue: 28b5eb*/
+
+* {
+  font-family: 'Fjalla One', sans-serif;
+  font-weight: bold;
+  margin: none;
+
 }
 
-a {
-  color: #00b7ff;
+/* 
+NAVIGATION */
+
+nav {
+  background-color: #fffcf2;
+  font-size: 2vw;
+}
+
+nav div img {
+  /* width: 5vw;
+  height: 6vh;  */
+  padding-left: 10px;
+}
+
+#BBB {
+  margin: 30px;
+  font-size: 3vw;
+
 }
 
 h1 {
-  color: 15px;
+  font-size: 4vmax;
+  margin-top: 3%;
 }
 
-#map {
-  height: 400px; /* The height is 400 pixels */
-  width: 100%; /* The width is the width of the web page */
+/* HOME */
+#homeBody {
+  height: 80%;
+  width: 100%;
+  display: flex;
+  align-items: start;
+  align-content: start;
+  flex-direction: column;
+  justify-content: center;
+  flex-wrap: wrap;
+  background-image: linear-gradient(to right,
+      rgba(0, 0, 0, 0.5),
+      rgba(0, 0, 0, 0)), url("../images/pexels-photo-2347311.jpeg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 }
-img {
-  width: 50%;
+
+#homeDiv {
+  width: 60%;
+  margin: 8% 5%;
+  color: fffcf2;
+  font-size: 6vmin;
+
+
 }
+
+
+
+/* LOGIN IN FORM AND FORMS */
+
+.sections {
+  height: 80vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+   background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  color: white;
+  font-size: 2vw;
+ 
+
+}
+
+/* @media (min-width: 800px) {
+  .PostFormBar {
+    width: 10vw;
+    height: 30vh;
+  }
+}
+ */
+
+
+#login-form {
+  background-image: linear-gradient(to right,
+      rgba(0, 0, 0, 0.5),
+      rgba(0, 0, 0, 0)), url("../images/pexels-photo-1527603.webp");
+}
+
+#SignUpform {
+  background-image: linear-gradient(to right,
+      rgba(0, 0, 0, 0.5),
+      rgba(0, 0, 0, 0)), url("../images/pexels-photo-958545.jpeg");
+}
+
+.loginSignUpBar {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  margin: 1% 4%;
+}
+
+.LoginSign {
+  color: white;
+  font-size: 3vw;
+}
+
+/* new post */
+#newPost {
+  /* flex-wrap: wrap; */
+  /* background-color: #eb5e28; */
+  background-image: linear-gradient(to right,
+      rgba(0, 0, 0, 0.5),
+      rgba(0, 0, 0, 0.5)), url("../images/pexels-photo-2664216.jpeg");
+
+
+}
+
+.formTitle {
+  width: 1vw;
+  text-align: center;
+  font-size: 2vw;
+  padding-right: 30px;
+  margin-right: 30px;
+
+
+}
+
+
+.PostFormBar {
+  width: 40vw;
+  height: 8vh;
+  margin: 10px;
+  margin-left: 50px;
+  padding-left: 15px;
+
+}
+
+.publishButton {
+  /* background-color: red; */
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+}
+
+
+
+/* form label {
+  margin: 3px;
+  color: fffcf2;
+  font-weight: none;
+  letter-spacing: 0.5px;
+  font-size: 1.8vw;
+
+} */
+
+form label input {
+  text-align: center;
+}
+
+/* ALL POSTS */
+#postBody {
+  height: auto;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  /* background-color: #eb5e28; */
+  background-image: linear-gradient(to right,
+      rgba(0, 0, 0, 0.5),
+      rgba(0, 0, 0, 0)), url("../images/pexels-daniel-frese-744484.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  color: white;
+
+
+}
+
+.signUpClass {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+
+}
+
+/*   MY PROFILE */
+#myProfileSection {
+  background-image: linear-gradient(to right,
+      rgba(0, 0, 0, 0.5),
+      rgba(0, 0, 0, 0)), url("../images/pexels-photo-1698439.jpeg");
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  height:auto;
+}
+
+
+
+.card {
+  margin: 30px 40px;
+  color: #252422;
+  font-size: 1vw;
+}
+
+.card-body {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+}
+
+#cardButton {
+  background-color: #28b5eb;
+  color: #fffcf2;
+}
+
+button {
+  text-align: center;
+  background-color: fffcf2;
+  font-size: 1.8vw;
+  padding: 1% 4%;
+}
+
+
+
+/* post details */
+
+#detailsPostSection {
+display:flex;
+flex-direction: row;
+}
+
+#postdetailsCard {
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+
+
+
+  }
+
+#detailsPostSection{
+  background-image: linear-gradient(to right,
+      rgba(0, 0, 0, 0.5),
+      rgba(0, 0, 0, 0)), url("../images/pexels-photo-1628020.jpeg");
+      height: auto;
+
+
+}
+/* post edit */
+#editPostSection {
+  background-image: linear-gradient(to right,
+      rgba(0, 0, 0, 0.5),
+      rgba(0, 0, 0, 0)), url("../images/pexels-photo-2308592.jpeg");
+
+}
+
+
+/* ANCHOR TAGS*/
+a:link :not(nav a) {
+  text-decoration: none;
+  color: white;
+}
+
+:visited :not(nav a) {
+  text-decoration: none;
+  color: white;
+}
+
+a:hover :not(nav a) {
+  text-decoration: none;
+  color: white;
+}
+
+/* selected link */
+a:active :not(nav a) {
+  text-decoration: none;
+  color: white;
+}
+
+label .LoginSign a:link {
+  background-color: pink;
+}
+
+/* FOOTER */
+footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  /* height: 13vh; */
+  width: 100%;
+  background-color: #fffcf2;
+  margin-top: 50px;
+}
+
+footer ul li a {
+  list-style: none;
+  text-decoration: none;
+  color: #403d39;
+  font-size: 1.4vw;
+}
+
+footer span {
+  font-size: 0.8vw;
+  text-align: center;
+  margin-bottom: 2%;
+}
+

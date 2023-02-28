@@ -1,4 +1,5 @@
-<div class="card">
+<section id="detailsPostSection">
+<div class="card" style="width: 18rem" >
   <img src="{{details.foto}}" class="card-img-top" alt="img" />
   <div class="card-body">
     <h5 class="card-title">{{details.restaurante}}</h5>
@@ -22,13 +23,13 @@
   {{/if}}
 
 </div>
-
+<div  class="card" style="width: 18rem" >
 <h6>COMENTS:</h6>
 {{#each details.comments}}
   <p><b>{{creator.username}}:</b> {{content}}</p>
 {{/each}}
 
-<form action="/user/{{details._id}}" method="post">
+<form action="/user/{{details._id}}" method="post" id="postdetailsCard">
 
   <textarea
     name="content"
@@ -39,3 +40,5 @@
 
   <button type="submit" class="btn btn-dark">Send</button>
 </form>
+</div>
+</section>

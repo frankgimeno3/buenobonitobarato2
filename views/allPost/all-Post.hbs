@@ -1,18 +1,37 @@
-<h1>Posts</h1>
+{{!-- <h1>Posts</h1>
+{{#each allpost}}
 
-<div>
-  {{#each allpost}}
+<div class="card" style="width: 18rem;">
+  {{!-- <img src="{{foto}}" class="card-img-top" alt="..." /> --}}
+  {{!-- <div class="card-body">
+    <h5 class="card-title">{{restaurante}}</h5>
+    <p class="card-text">{{detalles}}</p>
+    <p class="card-text">{{location}}</p>
+    <p class="card-text"><b>From:</b>{{this.creator.username}}</p>
+    <a href="/user/{{_id}}" class="btn btn-primary">More</a>
+  </div>
+</div> --}}
 
-    <div class="card" style="width: 18rem;">
-      <img src="{{foto}}" class="card-img-top" alt="..." />
-      <div class="card-body">
-        <h5 class="card-title">{{restaurante}}</h5>
-        <p class="card-text">{{detalles}}</p>
-        <p class="card-text">{{location}}</p>
-        <p class="card-text"><b>From:</b>{{this.creator.username}}</p>
-        <a href="/user/{{_id}}" class="btn btn-dark">More</a>
-      </div>
+{{!-- {{/each}} --}} 
+
+
+<section id="postBody">
+
+{{#each allpost}}
+
+  <div class="card" style="width: 18rem;">
+        <div class="card-body"></div>
+    <img src="{{foto}}" class="card-img-top" alt="{{restaurante}}" width="100" height="200"/>
+      <h5 class="card-title">{{restaurante}}</h5>
+      <p class="card-text">{{detalles}}</p>
+      <p class="card-text">{{location}}</p>
+        <a href="/user/{{_id}}" class="btn btn-primary">See More</a>
     </div>
+  </div>
 
-  {{/each}}
-</div>
+{{else}}
+    <p>There are no posts yet, why don't you make one?</p>
+
+{{/each}}
+
+</section>

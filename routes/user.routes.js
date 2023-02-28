@@ -4,10 +4,12 @@ const User = require("../models/User.model");
 const Post = require("../models/Post.model");
 const Comment = require("../models/Comment.model");
 const { db } = require("../models/User.model");
-const fileUploader = require("../config/cloudinary.config");
+const fileUploader = require('../config/cloudinary.config');
+const isLoggedOut = require("../middleware/isLoggedOut");
+const isLoggedIn = require("../middleware/isLoggedIn");
 
 /* GET home page */
-router.get("/user", (req, res, next) => {
+router.get("/user", isLoggedIn, (req, res, next) => {
   let myUserId = req.session.currentUser._id;
   console.log("**myuser id**=", myUserId);
   //console.log(req.session.currentUser);
@@ -29,11 +31,11 @@ router.get("/user", (req, res, next) => {
     .catch((err) => next(err));
 });
 
-router.get("/user/new-post", (req, res, next) => {
+router.get("/user/new-post", isLoggedIn, (req, res, next) => {
   res.render("users/formPost");
 });
 
-router.post("/user/new-post", fileUploader.single("foto"), (req, res, next) => {
+router.post("/user/new-post", fileUploader.single('foto'),(req, res, next) => {
   console.log("this is current user: ", req.session.currentUser._id);
 
   const creator = req.session.currentUser._id;
@@ -51,7 +53,7 @@ router.post("/user/new-post", fileUploader.single("foto"), (req, res, next) => {
     .catch((err) => next(err));
 });
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-router.get("/user/:postId", (req, res, next) => {
+router.get("/user/:postId", isLoggedIn, (req, res, next) => {
   const { postId } = req.params;
   const myUsername = req.session.currentUser.username;
   //console.log(myUsername);
@@ -116,7 +118,6 @@ router.post("/user/:postId", (req, res, next) => {
 router.post("/user/:postId/delete", (req, res, next) => {
   const { postId } = req.params;
   console.log(postId);
-
   Post.findByIdAndDelete(postId)
     .then(() => {
       console.log("the post has been removed");

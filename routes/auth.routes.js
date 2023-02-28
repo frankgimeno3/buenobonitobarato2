@@ -149,8 +149,9 @@ router.get("/logout", isLoggedIn, (req, res) => {
       return;
     }
 
-    res.redirect("/user");
+    res.redirect("/auth/login");
   });
 });
 
 module.exports = router;
+//changed logged in and log out

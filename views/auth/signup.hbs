@@ -1,28 +1,30 @@
-<div id="form">
-  <h2>Sign Up</h2>
-  <form action="/auth/signup" method="POST">
+<div id="SignUpform" class="sections">
+  <h1> Sign up</h1>
+  <form action="/auth/signup" method="POST" class="signUpClass">
+    <div>
 
-    <label>
-      Username
-      <input type="text" name="username" placeholder="Your username" />
-    </label>
+      <div>
+        <label class="formTitle"> Username </label>
+        <input type="text" name="username" placeholder="Your username" class="PostFormBar" />
+      </div>
+      <div>
+        <label class="formTitle">Email </label>
+        <input type="email" name="email" placeholder="Your email" class="PostFormBar" />
+      </div>
+      <div>
+        <label class="formTitle"> Password</label>
+        <input type="password" name="password" placeholder="Your password" class="PostFormBar" />
 
-    <label>
-      Email
-      <input type="email" name="email" placeholder="Your email" />
-    </label>
+      </div>
+      <div class="loginSignUpBar">
+        <button type="submit">Sign Up</button>
 
-    <label>
-      Password
-      <input type="password" name="password" placeholder="Your password" />
-    </label>
+        <a href="/auth/login" class="LoginSign">LogIn</a>
 
-    <button type="submit">Sign Up</button>
-
-    <a href="/auth/login">LogIn</a>
-
-    {{#if errorMessage}}
-      <p class="error">{{errorMessage}}</p>
-    {{/if}}
+        {{#if errorMessage}}
+        <p class="error">{{errorMessage}}</p>
+        {{/if}}
+      </div>
+    </div>
   </form>
 </div>
