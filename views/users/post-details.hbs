@@ -1,44 +1,44 @@
 <section id="detailsPostSection">
-<div class="card" style="width: 18rem" >
-  <img src="{{details.foto}}" class="card-img-top" alt="img" />
-  <div class="card-body">
-    <h5 class="card-title">{{details.restaurante}}</h5>
-    <p class="card-text">{{details.detalles}}</p>
+  <div class="card" style="width: 18rem">
+    <img src="{{details.foto}}" class="card-img-top" alt="img" />
+    <div class="card-body">
+      <h5 class="card-title">{{details.restaurante}}</h5>
+      <p class="card-text">{{details.detalles}}</p>
+    </div>
+
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">{{details.location}}</li>
+      <li class="list-group-item"><b>By:</b><q
+        >{{details.creator.username}}</q></li>
+      <li class="list-group-item"></li>
+    </ul>
+
+    {{#if status}}
+      <form action="/user/{{details._id}}/delete" method="POST">
+        <button class="btn btn-dark">Delete</button>
+      </form>
+      <a href="/user/{{details._id}}/edit">Edit</a>
+    {{else}}
+
+    {{/if}}
+
   </div>
+  <div class="card" style="width: 18rem">
+    <h6>COMENTS:</h6>
+    {{#each details.comments}}
+      <p><b>{{creator.username}}:</b> {{content}}</p>
+    {{/each}}
 
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item">{{details.location}}</li>
-    <li class="list-group-item"><b>By:</b><q
-      >{{details.creator.username}}</q></li>
-    <li class="list-group-item"></li>
-  </ul>
+    <form action="/user/{{details._id}}" method="post" id="postdetailsCard">
 
-  {{#if status}}
-    <form action="/user/{{details._id}}/delete" method="POST">
-      <button class="btn btn-dark">Delete</button>
+      <textarea
+        name="content"
+        cols="30"
+        rows="4"
+        placeholder="Write your comment..."
+      ></textarea>
+
+      <button type="submit" class="btn btn-dark">Send</button>
     </form>
-    <a href="/user/{{details._id}}/edit">Edit</a>
-  {{else}}
-
-  {{/if}}
-
-</div>
-<div  class="card" style="width: 18rem" >
-<h6>COMENTS:</h6>
-{{#each details.comments}}
-  <p><b>{{creator.username}}:</b> {{content}}</p>
-{{/each}}
-
-<form action="/user/{{details._id}}" method="post" id="postdetailsCard">
-
-  <textarea
-    name="content"
-    cols="30"
-    rows="4"
-    placeholder="Write your comment..."
-  ></textarea>
-
-  <button type="submit" class="btn btn-dark">Send</button>
-</form>
-</div>
+  </div>
 </section>
