@@ -6,7 +6,7 @@ Hello! Our project is based on good food in the city of Barcelona. Using the Spa
 
 ### Project Deployment
 
-The project is deployed using fly.dev **[here](https://buenobonitobarato.fly.dev/)**
+The project is deployed using fly.dev **[here](https://fly.io/apps/buenobonitobarato2)**
 
 ### Work structure
 
@@ -19,36 +19,30 @@ Fork and clone this repo and follow the belo instructions
 ```
     npm install
     npm start
-
 ```
 
 ### User Roles
 
-| Role  |     Capabilities      |    Properities |
-| :---- | :------------------------------ | ------------- |
-| **User**  |    User can `login/logout` to his/her personal profile and read/delete/create new posts, and leace a comments on his own post plus other users posts   | isAdmin: false |
-| **Admin** |  Admin have access to `login/logout` and read/delete/create new posts/comments on everything in a project |  isAdmin: true |
-
+| Role      | Capabilities                                                                                                                                      | Properities    |
+| :-------- | :------------------------------------------------------------------------------------------------------------------------------------------------ | -------------- |
+| **User**  | User can `login/logout` to his/her personal profile and read/delete/create new posts, and leace a comments on his own post plus other users posts | isAdmin: false |
+| **Admin** | Admin have access to `login/logout` and read/delete/create new posts/comments on everything in a project                                          | isAdmin: true  |
 
 ### Routes
 
-| Method | Endpoint              | Description           |         
-| :----  | :------               | :----                 |          
-| **POST**   | `/signup`             |  User register DataBase             |              
-| **GET**    | `/login`              |  User login in his/her profile            |               
-| **GET**    | `/logout`             |  User logged out forom his/her profile             |               
-| **GET**    | `/user`               |  Home page            |               
-| **GET**    | `/user/new-post`      |  Render a new  form post            |               
-| **POST**   | `/user/new-post`      |  Create new post on DB             |               
-| **GET**    | `/user/:postId`       |  Get a post and comments base on his ID
-| **POST**   | `/user/new-post`      |  Create a comments base related to creator
-| **POST**   | `/user/:postId/delete`|  Delete a post
-| **GET**    | `/user/:postId/edit`  |  Render a form to edit especific post by ID
-| **POST**   | `/user/:postId/edit`  |  Update the post on DB
- 
-
-
-
+| Method   | Endpoint               | Description                                |
+| :------- | :--------------------- | :----------------------------------------- |
+| **POST** | `/signup`              | User register DataBase                     |
+| **GET**  | `/login`               | User login in his/her profile              |
+| **GET**  | `/logout`              | User logged out forom his/her profile      |
+| **GET**  | `/user`                | Home page                                  |
+| **GET**  | `/user/new-post`       | Render a new form post                     |
+| **POST** | `/user/new-post`       | Create new post on DB                      |
+| **GET**  | `/user/:postId`        | Get a post and comments base on his ID     |
+| **POST** | `/user/new-post`       | Create a comments base related to creator  |
+| **POST** | `/user/:postId/delete` | Delete a post                              |
+| **GET**  | `/user/:postId/edit`   | Render a form to edit especific post by ID |
+| **POST** | `/user/:postId/edit`   | Update the post on DB                      |
 
 ### Models:
 
@@ -81,7 +75,6 @@ const userSchema = new Schema(
     timestamps: true,
   }
 );
-
 ```
 
 ```javascript
@@ -110,7 +103,6 @@ const postSchema = new Schema(
 );
 
 const Post = model("Post", postSchema);
-
 ```
 
 ```javascript
@@ -127,4 +119,3 @@ const commentSchema = new Schema(
 
 const Comment = model("Comment", commentSchema);
 ```
-

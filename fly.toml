@@ -1,6 +1,6 @@
-# fly.toml file generated for buenobonitobarato on 2023-02-21T23:29:21+01:00
+# fly.toml file generated for buenobonitobarato2 on 2023-03-06T23:43:01+01:00
 
-app = "buenobonitobarato"
+app = "buenobonitobarato2"
 kill_signal = "SIGINT"
 kill_timeout = 5
 processes = []
