@@ -8,12 +8,11 @@ const fileUploader = require('../config/cloudinary.config');
 const isLoggedOut = require("../middleware/isLoggedOut");
 const isLoggedIn = require("../middleware/isLoggedIn");
 
-/* GET home page */
+/* GET home page read post populating USER model*/
 router.get("/user", isLoggedIn, (req, res, next) => {
   let myUserId = req.session.currentUser._id;
   console.log("**myuser id**=", myUserId);
-  //console.log(req.session.currentUser);
-  //console.log("All information from cookie", req.session.currentUser);
+
   User.findById(myUserId)
     .populate("posts")
     .populate({
@@ -30,18 +29,19 @@ router.get("/user", isLoggedIn, (req, res, next) => {
 
     .catch((err) => next(err));
 });
-
+// Create New Post
 router.get("/user/new-post", isLoggedIn, (req, res, next) => {
   res.render("users/formPost");
 });
 
+
 router.post("/user/new-post", fileUploader.single('foto'),(req, res, next) => {
-  console.log("this is current user: ", req.session.currentUser._id);
+ 
 
   const creator = req.session.currentUser._id;
-  console.log("soy elcreator", creator);
+
   const { foto, restaurante, detalles, location } = req.body;
-  console.log(req.body);
+
   Post.create({ creator, foto: req.file.path, restaurante, detalles, location })
     .then((dbPost) => {
       return User.findByIdAndUpdate(creator, { $push: { posts: dbPost._id } });
@@ -52,11 +52,12 @@ router.post("/user/new-post", fileUploader.single('foto'),(req, res, next) => {
     })
     .catch((err) => next(err));
 });
-// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+// GET post by ID
 router.get("/user/:postId", isLoggedIn, (req, res, next) => {
   const { postId } = req.params;
   const myUsername = req.session.currentUser.username;
-  //console.log(myUsername);
+  
   Post.findById(postId)
     .populate("creator comments")
     .populate({
@@ -68,10 +69,9 @@ router.get("/user/:postId", isLoggedIn, (req, res, next) => {
     })
 
     .then((post) => {
-      console.log("Check the result", post.creator.username);
-
+     
       if (post.creator.username === myUsername) {
-        console.log("this is the second test", post);
+        
         res.render("users/post-details", { details: post, status: true });
       } else {
         res.render("users/post-details", { details: post });
@@ -80,51 +80,41 @@ router.get("/user/:postId", isLoggedIn, (req, res, next) => {
     .catch((err) => next(err));
 });
 
-// router.get("/user/:postId", (req, res, next) => {
-//   const { postId } = req.params;
-//   Post.findById(postId)
-//     .populate("creator comments")
-//
-//     .then((foundPost) => {
-//       console.log("This is comment array", foundPost);
-//       res.render("users/post-details", foundPost);
-//     })
-//     .catch((err) => next(err));
-// });
-// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// POST post by ID
 router.post("/user/:postId", (req, res, next) => {
   const { postId } = req.params;
   const creator = req.session.currentUser._id;
   const { content } = req.body;
-  //console.log("Session user_id:", creator);
+  
   Post.findById(postId)
     .then((dbPost) => {
       let newComment;
       newComment = new Comment({ creator: creator, content });
-      //console.log(newComment);
+      
       newComment.save().then((dbComment) => {
         dbPost.comments.push(dbComment._id);
         dbPost.save().then((UpdatePost) => {
-          //console.log("This is updated post", UpdatePost);
+         
           res.redirect(`/user/${UpdatePost._id}`);
         });
       });
     })
     .catch((err) => next(err));
 });
-//************************************************************************************************ */
 
-// ***************************************************************************************************
+// POST find post by ID and DELETE
 router.post("/user/:postId/delete", (req, res, next) => {
   const { postId } = req.params;
-  console.log(postId);
+  
   Post.findByIdAndDelete(postId)
     .then(() => {
-      console.log("the post has been removed");
+      
       res.redirect("/user");
     })
     .catch((err) => next(err));
 });
+
+// GET find post by ID and Update
 router.get("/user/:postId/edit", (req, res, next) => {
   const { postId } = req.params;
   Post.findById(postId).then((result) => {

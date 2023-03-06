@@ -21,11 +21,8 @@ const userSchema = new Schema(
       required: true,
     },
     posts: [{ type: Schema.Types.ObjectId, ref: "Post" }],
-
-    // Comment: [{ type: Schema.Types.ObjectId, ref: "Comment" }],
   },
   {
-    // this second object adds extra properties: `createdAt` and `updatedAt`
     timestamps: true,
   }
 );
