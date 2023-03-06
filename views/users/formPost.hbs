@@ -3,9 +3,11 @@
   
 
   <div >
+    
     <label class="formTitle">Restaurante</label>
     <Input name="restaurante"   class="PostFormBar" type="text">
     </div>
+
     <div >
       <label class="formTitle" >Detalles</label>
     <Input name="detalles"  class="PostFormBar" type="text">
@@ -14,9 +16,8 @@
   <div >
      <label class="formTitle">Location</label>
         <input name="location" id="location"  class="PostFormBar" type="text" placeholder="Search..."/>
-      {{!-- <Input name="location" id="location" tipe="text"> --}}
-   
   </div>
+
 <div >
   <label class="formTitle"> Image  </label>
 <input  class="PostFormBar" type="file" name="foto" id="foto" />
@@ -40,10 +41,7 @@
                 fields: ["formatted_address", "geometry", "name"]
             })
         console.log("consolelog de autocomplete", xautocomplete)
-        /*   let place = autocomplete.getPlace();
-
-           let lat = place.geometry.location.lat(),
-           let lng = place.geometry.location.lng(); */
+      
 
 
         autocomplete.addListener('place_changed', onPlaceChanged)
