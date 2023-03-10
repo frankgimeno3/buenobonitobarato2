@@ -21,6 +21,7 @@ const userSchema = new Schema(
       required: true,
     },
     posts: [{ type: Schema.Types.ObjectId, ref: "Post" }],
+    isAdmin: false,
   },
   {
     timestamps: true,
