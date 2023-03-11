@@ -11,7 +11,7 @@ const isLoggedIn = require("../middleware/isLoggedIn");
 /* GET home page read post populating USER model*/
 router.get("/user", isLoggedIn, (req, res, next) => {
   let myUserId = req.session.currentUser._id;
-
+  console.log(req.session.currentUser.isAdmin);
   User.findById(myUserId)
     .populate("posts")
     .populate({
@@ -22,6 +22,7 @@ router.get("/user", isLoggedIn, (req, res, next) => {
       },
     })
     .then((myUserdb) => {
+      console.log("Checking if the user isAdmin ==", myUserdb.isAdmin);
       console.log("Here is my data", myUserdb);
       res.render("users/home", { post: myUserdb });
     })
@@ -54,6 +55,9 @@ router.post("/user/new-post", fileUploader.single("foto"), (req, res, next) => {
 router.get("/user/:postId", isLoggedIn, (req, res, next) => {
   const { postId } = req.params;
   const myUsername = req.session.currentUser.username;
+  const admin = req.session.currentUser.isAdmin;
+  console.log(" This is the user logged in", myUsername);
+  console.log("This is information from loggedin user", admin);
 
   Post.findById(postId)
     .populate("creator comments")
@@ -66,7 +70,8 @@ router.get("/user/:postId", isLoggedIn, (req, res, next) => {
     })
 
     .then((post) => {
-      if (post.creator.username === myUsername) {
+      //Check if the current session user is owner of post or the user is admin
+      if (post.creator.username === myUsername || admin) {
         res.render("users/post-details", { details: post, status: true });
       } else {
         res.render("users/post-details", { details: post });
@@ -99,7 +104,6 @@ router.post("/user/:postId", isLoggedIn, (req, res, next) => {
 // POST find post by ID and DELETE
 router.post("/user/:postId/delete", isLoggedIn, (req, res, next) => {
   const { postId } = req.params;
-
   Post.findByIdAndDelete(postId)
     .then(() => {
       res.redirect("/user");

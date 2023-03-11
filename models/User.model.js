@@ -7,20 +7,24 @@ const userSchema = new Schema(
       type: String,
       required: false,
       unique: true,
-      trim: true,
+      trim: true
     },
     email: {
       type: String,
       required: true,
       unique: true,
       trim: true,
-      lowercase: true,
+      lowercase: true
     },
     password: {
       type: String,
-      required: true,
+      required: true
     },
     posts: [{ type: Schema.Types.ObjectId, ref: "Post" }],
+    isAdmin: {
+      type: Boolean,
+      default: false
+    }
   },
   {
     timestamps: true,
