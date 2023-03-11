@@ -17,7 +17,8 @@
     <form action="/user/{{details._id}}/delete" method="POST">
       <button class="btn btn-dark">Delete</button>
     </form>
-    <a href="/user/{{details._id}}/edit">Edit</a>
+    <button class="btn btn-dark"><a href="/user/{{details._id}}/edit">Edit</a></button>
+    
   {{else}}
 
   {{/if}}
