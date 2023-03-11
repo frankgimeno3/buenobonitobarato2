@@ -54,6 +54,8 @@ router.post("/user/new-post", fileUploader.single("foto"), (req, res, next) => {
 router.get("/user/:postId", isLoggedIn, (req, res, next) => {
   const { postId } = req.params;
   const myUsername = req.session.currentUser.username;
+  const admin = req.session.currentUser.isAdmin
+  console.log(admin)
 
   Post.findById(postId)
     .populate("creator comments")
@@ -66,7 +68,7 @@ router.get("/user/:postId", isLoggedIn, (req, res, next) => {
     })
 
     .then((post) => {
-      if (post.creator.username === myUsername) {
+      if (post.creator.username === myUsername || admin) {
         res.render("users/post-details", { details: post, status: true });
       } else {
         res.render("users/post-details", { details: post });
